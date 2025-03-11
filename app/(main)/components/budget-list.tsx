@@ -18,7 +18,7 @@ export default function BudgetList() {
             <p className="text-sm/6 font-semibold text-gray-900">
               {title(budget)}
             </p>
-            <p className="text-xs/5 text-gray-500">
+            <p className="text-sm text-gray-500">
               {totalSpent(budget)} / {totalBudget(budget)}
             </p>
           </div>
