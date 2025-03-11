@@ -14,7 +14,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, JSX, SetStateAction, useState } from "react";
 
 const navigation = [
   {
@@ -32,31 +32,38 @@ function downloadData() {
   )}`;
 }
 
-export default function Nav() {
+export default function Nav({
+  RightButton,
+  LeftButton,
+}: {
+  RightButton?: JSX.Element;
+  LeftButton?: JSX.Element;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <nav className="bg-violet-50">
+      <nav className="bg-violet-50 dark:bg-violet-900">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative flex h-13 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center">
-              {/* Mobile menu button*/}
-              <button
-                onClick={() => setOpen(true)}
-                className="group relative inline-flex items-center justify-center rounded-md p-2 text-white bg-violet-500 hover:bg-violet-700 hover:text-white focus:ring-2 focus:ring-black focus:outline-hidden focus:ring-inset"
-              >
-                <span className="absolute -inset-0.5" />
-                <span className="sr-only">Open main menu</span>
-                <Bars3Icon
-                  aria-hidden="true"
-                  className="block size-4 group-data-open:hidden"
-                />
-                <XMarkIcon
-                  aria-hidden="true"
-                  className="hidden size-4 group-data-open:block"
-                />
-              </button>
+              {LeftButton ?? (
+                <button
+                  onClick={() => setOpen(true)}
+                  className="group relative inline-flex items-center justify-center rounded-md p-2 text-white bg-violet-500 hover:bg-violet-700 hover:text-white focus:ring-2 focus:ring-black focus:outline-hidden focus:ring-inset"
+                >
+                  <span className="absolute -inset-0.5" />
+                  <span className="sr-only">Open main menu</span>
+                  <Bars3Icon
+                    aria-hidden="true"
+                    className="block size-4 group-data-open:hidden"
+                  />
+                  <XMarkIcon
+                    aria-hidden="true"
+                    className="hidden size-4 group-data-open:block"
+                  />
+                </button>
+              )}
             </div>
             {/* <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
@@ -67,16 +74,7 @@ export default function Nav() {
               />
             </div>
           </div> */}
-            <div className="absolute inset-y-0 right-0 flex items-center">
-              <button
-                type="button"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white bg-violet-500 hover:bg-violet-700 hover:text-white focus:ring-2 focus:ring-black focus:outline-hidden focus:ring-inset"
-              >
-                <span className="absolute -inset-1.5" />
-                <span className="sr-only">Create new budget</span>
-                <PencilSquareIcon aria-hidden="true" className="size-4" />
-              </button>
-            </div>
+            {RightButton}
           </div>
         </div>
       </nav>
@@ -96,7 +94,7 @@ function MenuDrawer({
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
         transition
-        className="fixed inset-0 bg-gray-500/75 transition-opacity duration-400 ease-in-out data-closed:opacity-0"
+        className="fixed inset-0 bg-gray-500/75 dark:bg-black/75 transition-opacity duration-400 ease-in-out data-closed:opacity-0"
       />
 
       <div className="fixed inset-0 overflow-hidden">
@@ -119,9 +117,9 @@ function MenuDrawer({
                   </button>
                 </div>
               </TransitionChild>
-              <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+              <div className="flex h-full flex-col overflow-y-scroll bg-white dark:bg-gray-900 py-6 shadow-xl">
                 <div className="px-4 sm:px-6">
-                  <h1 className="text-2xl font-semibold text-gray-900">
+                  <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
                     Budgeteer
                   </h1>
                 </div>
