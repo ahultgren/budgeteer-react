@@ -1,9 +1,5 @@
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
 
-export type Store = {
-  periods: Period[];
-};
-
 export type Period = {
   ledger: string;
   budget: Budget;
@@ -12,24 +8,30 @@ export type Period = {
 
 export type Budget = Record<string, number>;
 
-export type StoreType = {
-  store: Store;
-  setStore: Dispatch<SetStateAction<Store>>;
+export type Store = {
+  periods: Period[];
+  addPeriod: () => void;
+  removePeriod: (arg0: Period) => void;
+  updatePeriod: (arg0: Period) => void;
   loading: boolean;
 };
 
-export function useStore(): StoreType {
-  const empty: Store = { periods: [] };
-  const [store, setStore] = useState(empty);
+export function useStore(): Store {
+  const empty: Period[] = [];
+  const [periods, setPeriods] = useState(empty);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storage = localStorage.getItem("store");
     if (storage) {
-      setStore(JSON.parse(storage));
+      setPeriods(JSON.parse(storage).periods);
     }
     setLoading(false);
   }, []);
 
-  return { store, setStore, loading };
+  function addPeriod() {}
+  function removePeriod() {}
+  function updatePeriod() {}
+
+  return { periods, addPeriod, removePeriod, updatePeriod, loading };
 }

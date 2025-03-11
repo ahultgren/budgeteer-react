@@ -4,13 +4,13 @@ import { propEq } from "ramda";
 import { Period, useStore } from "@/app/lib/data";
 
 export default function Ledger({ id }: { id: string }) {
-  const { store, loading } = useStore();
+  const { periods, loading } = useStore();
 
   if (loading) {
     return <div>Loading... Let's put a skeleton here!</div>;
   }
 
-  const budget: Period = store.periods.filter(propEq(id, "id"))[0];
+  const budget: Period = periods.filter(propEq(id, "id"))[0];
 
   if (!budget) {
     return <div>Error</div>;

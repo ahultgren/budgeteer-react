@@ -9,11 +9,11 @@ const title = ({ ledger }: { ledger: string }) => {
 };
 
 export default function BudgetList() {
-  const { store } = useStore();
+  const { periods } = useStore();
 
   return (
     <ul role="list" className="divide-y divide-gray-100">
-      {store.periods.map((budget) => (
+      {periods.map((budget) => (
         <li key={budget.id} className="flex justify-between py-3">
           <Link href={`/budget/${budget.id}`} className="w-full">
             <div className="min-w-0 flex-auto">
