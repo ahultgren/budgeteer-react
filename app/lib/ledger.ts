@@ -1,5 +1,5 @@
 import { pipe, reduce, values, sortBy, prop } from "ramda";
-import { Period } from "./data";
+import { Period } from "./store";
 
 type Category = {
   amount: number;

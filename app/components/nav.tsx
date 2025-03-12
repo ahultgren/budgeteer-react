@@ -10,7 +10,6 @@ import {
   ArrowDownTrayIcon,
   ArrowUpTrayIcon,
   Bars3Icon,
-  PencilSquareIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -43,7 +42,7 @@ export default function Nav({
 
   return (
     <>
-      <nav className="bg-violet-50 dark:bg-violet-900">
+      <nav className="bg-violet-50 dark:bg-violet-900 sticky top-0">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative flex h-13 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center">

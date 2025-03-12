@@ -1,10 +1,11 @@
 "use client";
 
 import { propEq } from "ramda";
-import { Period, useStore } from "@/app/lib/data";
+import { Period, useLoading, usePeriods } from "@/app/lib/store";
 
 export default function Ledger({ id }: { id: string }) {
-  const { periods, loading } = useStore();
+  const periods = usePeriods();
+  const loading = useLoading();
 
   if (loading) {
     return <div>Loading... Let's put a skeleton here!</div>;
