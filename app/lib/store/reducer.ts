@@ -1,13 +1,21 @@
 import { v4 } from "uuid";
 import { Period } from "./definitions";
 
-export type Action = { type: "added" } | { type: "loaded"; periods: Period[] };
+export type Action =
+  | { type: "added" }
+  | { type: "loaded"; periods: Period[] }
+  | {
+      type: "update ledger";
+      id: string;
+      ledger: string;
+    };
 
 export function periodsReducer(
   storedPeriods: Period[],
   action: Action
 ): Period[] {
-  switch (action.type) {
+  const type = action.type;
+  switch (type) {
     case "added": {
       return [
         ...storedPeriods,
@@ -21,8 +29,20 @@ export function periodsReducer(
     case "loaded": {
       return action.periods;
     }
+    case "update ledger": {
+      return storedPeriods.map((period) => {
+        if (period.id === action.id) {
+          return {
+            ...period,
+            ledger: action.ledger,
+          };
+        }
+
+        return period;
+      });
+    }
     default: {
-      const error: never = action.type as never;
+      const error: never = type;
       throw new Error(`Unkown dispath type ${error}`);
     }
   }

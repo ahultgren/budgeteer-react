@@ -15,6 +15,8 @@ const PeriodsContext = createContext<Period[]>([]);
 const PeriodsDispatchContext = createContext<(arg0: Action) => void>(() => {});
 const LoadingContext = createContext(true);
 
+export type { Period };
+
 export function usePeriods() {
   return useContext(PeriodsContext);
 }

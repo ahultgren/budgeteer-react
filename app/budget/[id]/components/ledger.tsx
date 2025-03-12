@@ -1,10 +1,17 @@
 "use client";
 
 import { propEq } from "ramda";
-import { Period, useLoading, usePeriods } from "@/app/lib/store";
+import {
+  Period,
+  useLoading,
+  usePeriods,
+  usePeriodsDispatch,
+} from "@/app/lib/store";
+import { FormEvent } from "react";
 
 export default function Ledger({ id }: { id: string }) {
   const periods = usePeriods();
+  const dispatch = usePeriodsDispatch();
   const loading = useLoading();
 
   if (loading) {
@@ -17,10 +24,19 @@ export default function Ledger({ id }: { id: string }) {
     return <div>Error</div>;
   }
 
+  function handleInput(e: FormEvent<HTMLTextAreaElement>, id: string) {
+    dispatch({
+      type: "update ledger",
+      ledger: (e.target as HTMLInputElement).value,
+      id: id,
+    });
+  }
+
   return (
     <div className="grow flex relative">
       <textarea
-        defaultValue={budget.ledger}
+        value={budget.ledger}
+        onInput={(e) => handleInput(e, budget.id)}
         className="absolute h-full w-full min-h-80 p-4 pb-20 font-mono"
       ></textarea>
     </div>
