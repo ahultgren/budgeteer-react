@@ -23,7 +23,12 @@ const navigation = [
     current: false,
     Icon: ArrowDownTrayIcon,
   },
-  { name: "Import backup", href: "#", current: false, Icon: ArrowUpTrayIcon },
+  {
+    name: "Import backup",
+    href: "/import",
+    current: false,
+    Icon: ArrowUpTrayIcon,
+  },
 ];
 
 function downloadData(periods: Period[]) {
