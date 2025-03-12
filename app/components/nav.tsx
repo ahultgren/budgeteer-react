@@ -14,20 +14,21 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Dispatch, JSX, SetStateAction, useState } from "react";
+import { Period, usePeriods } from "../lib/store";
 
 const navigation = [
   {
     name: "Download backup",
-    href: "#",
+    href: downloadData,
     current: false,
     Icon: ArrowDownTrayIcon,
   },
   { name: "Import backup", href: "#", current: false, Icon: ArrowUpTrayIcon },
 ];
 
-function downloadData() {
+function downloadData(periods: Period[]) {
   return `data:application/octet-stream,${encodeURIComponent(
-    JSON.stringify(store.periods)
+    JSON.stringify(periods)
   )}`;
 }
 
@@ -91,6 +92,8 @@ function MenuDrawer({
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) {
+  const periods = usePeriods();
+
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -127,7 +130,10 @@ function MenuDrawer({
                 <ul className="relative mt-6 px-4 sm:px-6 m-4 rounded border border-gray-200">
                   {navigation.map(({ name, Icon, href }, i) => (
                     <li key={i} className="">
-                      <Link href={href} className="flex py-2">
+                      <Link
+                        href={typeof href === "function" ? href(periods) : href}
+                        className="flex py-2"
+                      >
                         <Icon
                           aria-hidden="true"
                           className="size-5 inline-block mr-2"
