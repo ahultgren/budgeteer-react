@@ -15,7 +15,7 @@ export default function Ledger({ id }: { id: string }) {
   const loading = useLoading();
 
   if (loading) {
-    return <div>Loading... Let's put a skeleton here!</div>;
+    return <div>Loading... Let&apos;s put a skeleton here!</div>;
   }
 
   const budget: Period = periods.filter(propEq(id, "id"))[0];

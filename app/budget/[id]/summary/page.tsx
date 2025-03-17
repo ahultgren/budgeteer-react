@@ -2,17 +2,17 @@
 
 import { currentCategories, totalBudget, totalSpent } from "@/app/lib/ledger";
 import { Period, useLoading, usePeriods } from "@/app/lib/store";
+import { useParams } from "next/navigation";
 import { propEq } from "ramda";
-import { Usable, use } from "react";
 
-export default function Summary(props: { params: Usable<{ id: string }> }) {
-  const params = use(props.params);
+export default function Summary() {
+  const params = useParams();
   const id = params.id;
   const loading = useLoading();
   const periods = usePeriods();
 
   if (loading) {
-    return <div>Loading... Let's put a skeleton here!</div>;
+    return <div>Loading... Let&apos;s put a skeleton here!</div>;
   }
 
   const budget: Period = periods.filter(propEq(id, "id"))[0];

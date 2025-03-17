@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Period,
-  useLoading,
-  usePeriods,
-  usePeriodsDispatch,
-} from "@/app/lib/store";
+import { useLoading, usePeriods, usePeriodsDispatch } from "@/app/lib/store";
 import { totalBudget, totalSpent } from "@/app/lib/ledger";
 import Link from "next/link";
 import {
@@ -28,7 +23,7 @@ export default function BudgetList() {
   const loading = useLoading();
 
   if (loading) {
-    return <div>Loading... Let's put a skeleton here!</div>;
+    return <div>Loading... Let&apos;s put a skeleton here!</div>;
   }
 
   return (

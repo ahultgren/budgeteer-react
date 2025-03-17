@@ -7,23 +7,31 @@ type Category = {
   name: string;
 };
 
+type Categories = {
+  [name: string]: Category;
+};
+
+type Currencies = {
+  [tag: string]: number;
+};
+
 export function currentCategories(period: Period): Category[] {
   const ledger = period.ledger;
   const entries = ledger.split(/\n/g).slice(1);
-  const currencies = {
+  const currencies: Currencies = {
     sek: 1,
   };
   let currentCurrencyValue = 1;
 
   return pipe(
-    reduce((obj, entry: string) => {
+    reduce((obj: Categories, entry: string) => {
       const match = entry
         .toLowerCase()
         .match(/^([+-]?(?:[0-9]*[.])?[0-9]+)([a-z]{3})? +([^ ]+) *(.*)$/);
 
       if (match) {
         const [, amount, currencyCode, name] = match;
-        const category = (obj[name] = obj[name] || {
+        const category: Category = (obj[name] = obj[name] || {
           amount: 0,
           budget: Number(period.budget[name]) || 0,
           name,
