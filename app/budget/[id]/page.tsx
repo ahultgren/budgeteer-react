@@ -1,6 +1,8 @@
 import Ledger from "./components/ledger";
 
-export default async function Budget(props) {
+export default async function Budget(props: {
+  params: Promise<{ id: string }>;
+}) {
   const params = await props.params;
   const id = params.id;
 

@@ -8,7 +8,8 @@ export type Action =
       type: "update ledger";
       id: string;
       ledger: string;
-    };
+    }
+  | { type: "remove"; period: Period };
 
 export function periodsReducer(
   storedPeriods: Period[],
@@ -39,6 +40,11 @@ export function periodsReducer(
         }
 
         return period;
+      });
+    }
+    case "remove": {
+      return storedPeriods.filter((period) => {
+        return period.id !== action.period.id;
       });
     }
     default: {
