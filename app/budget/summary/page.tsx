@@ -2,12 +2,12 @@
 
 import { currentCategories, totalBudget, totalSpent } from "@/app/lib/ledger";
 import { Period, useLoading, usePeriods } from "@/app/lib/store";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { propEq } from "ramda";
 
 export default function Summary() {
-  const params = useParams();
-  const id = params.id;
+  const params = useSearchParams();
+  const id = params.get("id");
   const loading = useLoading();
   const periods = usePeriods();
 
@@ -15,7 +15,16 @@ export default function Summary() {
     return <div>Loading... Let&apos;s put a skeleton here!</div>;
   }
 
+  if (!id) {
+    return <div>Budget not found</div>;
+  }
+
   const budget: Period = periods.filter(propEq(id, "id"))[0];
+
+  if (!budget) {
+    return <div>Error</div>;
+  }
+
   const categories = currentCategories(budget);
 
   return (

@@ -44,7 +44,11 @@ export default function BudgetList() {
             })}
             fullSwipe={true}
           >
-            <Link href={`/budget/${period.id}`} className="w-full">
+            <Link
+              href={`/budget?id=${period.id}`}
+              prefetch={true}
+              className="w-full"
+            >
               <div className="min-w-0 flex-auto">
                 <p className="text-sm/6 font-semibold text-gray-900 dark:text-white">
                   {title(period)}
