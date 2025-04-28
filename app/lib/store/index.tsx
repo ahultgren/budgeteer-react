@@ -10,6 +10,7 @@ import {
 import { useLocalStorage } from "./localStorage";
 import { Action, periodsReducer } from "./reducer";
 import { Period } from "./definitions";
+import { generateExample } from "./example";
 
 const PeriodsContext = createContext<Period[]>([]);
 const PeriodsDispatchContext = createContext<(arg0: Action) => void>(() => {});
@@ -38,12 +39,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     key: "periods",
     target: periods,
     onLoad: (data) => {
-      if (data) {
-        dispatch({
-          type: "loaded",
-          periods: data,
-        });
-      }
+      dispatch({
+        type: "loaded",
+        periods: data || generateExample(),
+      });
+
       setLoading(false);
     },
   });
